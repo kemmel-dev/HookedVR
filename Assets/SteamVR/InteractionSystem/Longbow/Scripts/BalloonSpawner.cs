@@ -46,7 +46,7 @@ namespace Valve.VR.InteractionSystem
 
 			if ( autoSpawn && spawnAtStartup )
 			{
-				SpawnBalloon( color );
+				SpawnBalloon( Vector3.zero, color );
 				nextSpawnTime = Random.Range( minSpawnTime, maxSpawnTime ) + Time.time;
 			}
 		}
@@ -62,20 +62,20 @@ namespace Valve.VR.InteractionSystem
 
 			if ( ( Time.time > nextSpawnTime ) && autoSpawn )
 			{
-				SpawnBalloon( color );
+				SpawnBalloon( Vector3.zero, color );
 				nextSpawnTime = Random.Range( minSpawnTime, maxSpawnTime ) + Time.time;
 			}
 		}
 
 
 		//-------------------------------------------------
-		public GameObject SpawnBalloon( Balloon.BalloonColor color = Balloon.BalloonColor.Red )
+		public GameObject SpawnBalloon(Vector3 offset, Balloon.BalloonColor color = Balloon.BalloonColor.Red)
 		{
 			if ( balloonPrefab == null )
 			{
 				return null;
 			}
-			GameObject balloon = Instantiate( balloonPrefab, transform.position, transform.rotation ) as GameObject;
+			GameObject balloon = Instantiate( balloonPrefab, transform.position + offset, transform.rotation ) as GameObject;
 			balloon.transform.localScale = new Vector3( scale, scale, scale );
 			if ( attachBalloon )
 			{
@@ -110,12 +110,19 @@ namespace Valve.VR.InteractionSystem
 			return balloon;
 		}
 
-
 		//-------------------------------------------------
 		public void SpawnBalloonFromEvent( int color )
 		{
 			// Copy of SpawnBalloon using int because we can't pass in enums through the event system
-			SpawnBalloon( (Balloon.BalloonColor)color );
+			SpawnBalloon( Vector3.zero, (Balloon.BalloonColor)color );
+		}
+
+		public void SpawnThreeRandomBalloons()
+		{
+			// Copy of SpawnBalloon using int because we can't pass in enums through the event system
+			SpawnBalloon(Vector3.zero, Balloon.BalloonColor.Random);
+			SpawnBalloon(new Vector3(Random.Range(0.35f, .85f), Random.Range(-.75f, .75f), 0));
+			SpawnBalloon(new Vector3(-Random.Range(0.35f, .85f), Random.Range(-.75f, .75f), 0));
 		}
 	}
 }

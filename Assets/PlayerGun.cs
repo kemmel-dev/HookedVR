@@ -39,8 +39,11 @@ public class PlayerGun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = (leftHand.position + rightHand.position) / 2;
-        transform.LookAt(transform.position + GunDir * 5);
+        if (leftHand != null && rightHand != null)
+        {
+            transform.position = (leftHand.position + rightHand.position) / 2;
+            transform.LookAt(transform.position + GunDir * 5);
+        }
     }
 
     public void Fire()

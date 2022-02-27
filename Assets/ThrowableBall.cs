@@ -7,11 +7,24 @@ public class ThrowableBall : Throwable
 {
 
     public BallSpawner ballSpawner;
+    public ThrowCounter throwCounter;
 
-    protected override void OnAttachedToHand(Hand hand)
+    private bool firstTimeThrown = false;
+
+    private void Start()
     {
-        base.OnAttachedToHand(hand);
+        ballSpawner = GameObject.FindGameObjectWithTag("BallSpawner").GetComponent<BallSpawner>();
+        throwCounter = GameObject.FindGameObjectWithTag("ThrowCounter").GetComponent<ThrowCounter>();
+    }
 
-        ballSpawner.SpawnNewBall();
+    protected override void OnDetachedFromHand(Hand hand)
+    {
+        base.OnDetachedFromHand(hand);
+        if (!firstTimeThrown)
+        {
+            firstTimeThrown = true;
+            ballSpawner.SpawnBallWithDelay();
+        }
+        throwCounter.IncrementScore();
     }
 }
