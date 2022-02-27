@@ -9,6 +9,8 @@ TagManager:
   - FxTemporaire
   - Can
   - ThrowCounter
+  - Target
+  - Balloon
   layers:
   - Default
   - TransparentFX

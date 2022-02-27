@@ -113,6 +113,14 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Boolean Pickup
+        {
+            get
+            {
+                return SteamVR_Actions.default_Pickup;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get

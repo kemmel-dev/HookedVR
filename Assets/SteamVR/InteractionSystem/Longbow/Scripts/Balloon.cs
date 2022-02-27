@@ -108,7 +108,7 @@ namespace Valve.VR.InteractionSystem
 
 
 		//-------------------------------------------------
-		private void ApplyDamage()
+		public void ApplyDamage()
 		{
 			SpawnParticles( popPrefab, null );
 			Destroy( gameObject );
