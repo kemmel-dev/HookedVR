@@ -10,6 +10,10 @@ public class CompletionCounter : ScoreCounter
 
     public UnityEvent onCompletion;
 
+    public Color32 green;
+    public Color32 yellow;
+    public Color32 red;
+
     internal override void Start()
     {
         base.Start();
@@ -26,7 +30,18 @@ public class CompletionCounter : ScoreCounter
 
     public override string FormatScore()
     {
-        scoreText.color = Color32.Lerp(Color.red, Color.green, Score / maxScore);
+        float lerpValue = (float) Score / (float) maxScore;
+        if (lerpValue <= 0.5f)
+        {
+            scoreText.color = Color32.Lerp(red, yellow, lerpValue / 0.5f);
+            Debug.Log(lerpValue);
+        }
+        else
+        {
+            scoreText.color = Color32.Lerp(yellow, green, (lerpValue - 0.5f) / 0.5f);
+            Debug.Log(lerpValue);
+
+        }
         return string.Format("{0}/{1}", Score, maxScore);
     }
 }

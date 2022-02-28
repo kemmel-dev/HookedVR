@@ -11,6 +11,9 @@ TagManager:
   - ThrowCounter
   - Target
   - Balloon
+  - Duck
+  - DuckZone
+  - DuckCompletion
   layers:
   - Default
   - TransparentFX
